@@ -1,13 +1,25 @@
-ADD_LIBRARY(cherryengine core.cpp)
+# Libraries
+
+ADD_LIBRARY(cherryengine core.cpp CherryEngine/main.cpp)
+
 ADD_LIBRARY(glad glad.c)
 
-TARGET_INCLUDE_DIRECTORIES(cherryengine PUBLIC
-                           ${CherryEngine_SOURCE_DIR}/include)
-TARGET_INCLUDE_DIRECTORIES(cherryengine PRIVATE
+
+# Include
+TARGET_INCLUDE_DIRECTORIES(cherryengine
+
+                           PUBLIC
+                           ${CherryEngine_SOURCE_DIR}/include
+
+                           PRIVATE
                            ${CherryEngine_SOURCE_DIR}/src)
 
-TARGET_INCLUDE_DIRECTORIES(glad PRIVATE
+TARGET_INCLUDE_DIRECTORIES(glad
+
+                           PRIVATE
                            ${CherryEngine_SOURCE_DIR}/include)
 
-TARGET_LINK_LIBRARIES(glad ld)
+
+# Linking
+TARGET_LINK_LIBRARIES(glad dl)
 TARGET_LINK_LIBRARIES(cherryengine glfw glad)
