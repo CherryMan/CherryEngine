@@ -1,3 +1,4 @@
+#include <CherryEngine/state.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -14,7 +15,7 @@ void init() {
     glfw_window = glfwCreateWindow(640, 480, "title", NULL, NULL);
 }
 
-void loop() {
+void loop(State *st) {
 
     // Ticks per second (note: temporary)
     const int tickspeed = 25;

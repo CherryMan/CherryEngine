@@ -1,10 +1,11 @@
 #include <CherryEngine/main.h>
+#include <CherryEngine/state.h>
 
 #include "../core.h"
 
 
-void start() {
+void start(State *st) {
     init();
-    loop();
+    loop(st);
     end();
 }

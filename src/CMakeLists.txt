@@ -1,7 +1,13 @@
+SET(src
+    core.cpp
+    CherryEngine/main.cpp
+    CherryEngine/state.cpp
+)
+
+
 # Libraries
 
-ADD_LIBRARY(cherryengine core.cpp CherryEngine/main.cpp)
-
+ADD_LIBRARY(cherryengine ${src})
 ADD_LIBRARY(glad glad.c)
 
 
