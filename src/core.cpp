@@ -17,6 +17,10 @@ void init() {
 
 void loop(State *st) {
 
+    st->run();
+    st->wait();
+
+/*
     // Ticks per second (note: temporary)
     const int tickspeed = 25;
 
@@ -42,6 +46,7 @@ void loop(State *st) {
         // TODO render
 
     }
+*/
 }
 
 void end() {
