@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <CherryEngine/state.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -17,8 +19,11 @@ void init() {
 
 void loop(State *st) {
 
+    std::cout << "Running" << std::endl;
     st->run();
+    std::cout << "Waiting" << std::endl;
     st->wait();
+    std::cout << "Wait" << std::endl;
 
 /*
     // Ticks per second (note: temporary)

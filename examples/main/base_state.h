@@ -3,12 +3,15 @@
 
 #include <CherryEngine/state.h>
 
-
 class BaseState : public State {
 
 public:
-    BaseState() = default;
+    BaseState() {
+        loop(CB(render), 1);
+    }
 
-    void render() override;
+private:
+    int count = 0;
 
+    void render();
 };

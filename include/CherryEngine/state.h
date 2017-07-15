@@ -1,25 +1,22 @@
 #pragma once
 
 
+#include <functional>
 #include <map>
+#include <thread>
+#include <tuple>
 #include <utility>
 #include <vector>
 
+// TODO find cleaner solution
+// CB should be isolated under a namespace somehow
+#define CB(fn) [&]() { fn(); }
 
 class State;
 
 class State {
 
 public:
-
-    // Used for calling the loop method
-    virtual State() = 0;
-
-    // state_ptr is a pointer to a state method
-    typedef void (State::*state_fn)();
-
-    // Create coroutine
-    virtual void loop(state_fn fn, int tickrate = 0) final;
 
     // Create a new substate
     virtual void substate(State &subst) final;
@@ -33,7 +30,23 @@ public:
 
 protected:
 
-    // These store the loops and substates
-    std::map<state_fn, int> loops;
+    // state_fn is a pointer to a state method
+    //using state_fn = void (*)();
+    using state_fn = std::function<void()>;
+
+    struct loop_info {
+         state_fn fn;
+         int tickrate;
+         bool running = false;
+         std::thread *thr;
+    };
+
+    // These store the loops tickrates, threads and substates
+    std::vector<loop_info> loops;
     std::vector<State*> substates;
+
+    // Add a coroutine
+    // If tickrate is 0, loop is as fast as possible
+    virtual void loop(state_fn fn, const int tickrate) final;
+
 };
