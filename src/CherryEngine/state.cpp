@@ -1,62 +1,31 @@
 #include <CherryEngine/state.h>
 
+#include "../state/state_impl.h"
+#include "../state/state_machine.h"
+
+#include <initializer_list>
 #include <iostream>
+#include <utility>
 #include <thread>
 
-#include <GLFW/glfw3.h>
+
+// State definitions
+void State::substate(State &subst) { d_ptr->substate(*(subst.d_ptr)); }
+void State::start() { d_ptr->start(); }
+void State::wait() const { d_ptr->wait(); }
+void State::stop() { d_ptr->stop(); }
+void State::next_state() { d_ptr->next_state(); }
+void State::change_state(const std::string &st_name) { d_ptr->change_state(st_name); }
+void State::loop(state_fn fn, const int tickrate) { d_ptr->loop(fn, tickrate); }
 
 
-void State::loop(State::state_fn fn, const int tickrate) {
+// StateMap definitions
+StateMap::StateMap(std::initializer_list<std::pair<const std::string&, State&>> init) {
 
-    loop_info lp {fn, tickrate};
-    
-    loops.push_back(lp);
-
-}
-
-void State::substate(State &subst) {
-    
-    substates.push_back(&subst);
-}
-
-void State::run() {
-
-    // Init each loop in its own thread
-    for (auto &lp : loops) {
-        lp.thr = new std::thread([&lp, this]() -> void {
-
-                // These variables count ticks
-                const double skip_ticks = 1 / lp.tickrate;
-                double next_tick = glfwGetTime();
-
-                // Set loop as running
-                lp.running = true;
-
-                // Main loop
-                while (lp.running) {
-
-                    // Wait for next tick
-                    while (glfwGetTime() > next_tick) next_tick += skip_ticks;
-
-                    // Function to loop over
-                    lp.fn();
-                }
-        });
+    /*
+    for (auto &it : init) {
+        priv_map[it.first] = *(it.second.d_ptr;
     }
-    
-    // Run each substate
-    for (auto &st_ptr : substates) {
-        st_ptr->run();
-    }
-}
+    */
 
-void State::wait() const {
-
-    for (auto &lp : loops) {
-        lp.thr->join();
-    }
-    
-    for (auto &st_ptr : substates) {
-        st_ptr->wait();
-    }
 }

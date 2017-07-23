@@ -19,11 +19,8 @@ void init() {
 
 void loop(State *st) {
 
-    std::cout << "Running" << std::endl;
-    st->run();
-    std::cout << "Waiting" << std::endl;
+    st->start();
     st->wait();
-    std::cout << "Wait" << std::endl;
 
 /*
     // Ticks per second (note: temporary)

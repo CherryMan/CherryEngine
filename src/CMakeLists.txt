@@ -2,6 +2,8 @@ SET(src
     core.cpp
     CherryEngine/main.cpp
     CherryEngine/state.cpp
+    state/state_machine.cpp
+    state/state_impl.cpp
 )
 
 
