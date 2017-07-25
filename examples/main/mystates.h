@@ -11,7 +11,21 @@ public:
     }
 
 private:
-    int count = 0;
+    int countdown = 5;
 
     void render();
+};
+
+
+class NextState : public State {
+
+public:
+    NextState() {
+        loop(CB(run), 0.5);
+    }
+
+private:
+    int count = 0;
+
+    void run();
 };

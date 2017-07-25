@@ -2,19 +2,26 @@
 
 
 #include <functional>
+#include <memory>
 #include <string>
 #include <thread>
 #include <vector>
 
-#include "state_machine.h"
 
 using state_fn = std::function<void()>;
 
+class State;
 class StateImpl;
+class StateMachine;
 
 class StateImpl {
 
+    friend class StateMachine;
+
 public:
+
+    StateImpl() = default;
+    ~StateImpl();
 
     void substate(StateImpl &subst);
     void start();
@@ -23,16 +30,15 @@ public:
     void next_state();
     void change_state(const std::string &st_name);
 
-    void loop(state_fn fn, const int tickrate);
+    void loop(state_fn fn, const double tickrate);
 
     // Define a single loop and its properties
     struct loop_info {
          state_fn fn;
-         int tickrate;
+         double tickrate;
          bool running = false;
          std::thread *thr;
     };
-
 
     // These store the loops tickrates, threads and substates
     std::vector<loop_info> loops;
@@ -41,5 +47,4 @@ public:
     // Stores the address to the StateMachine holding this State
     StateMachine *st_machine_ptr;
 
-}; // State::StateImpl
- 
+}; // StateImpl

@@ -1,16 +1,20 @@
+#include <iostream>
+
 #include <CherryEngine/main.h>
 #include <CherryEngine/state.h>
 
-#include "base_state.h"
+#include "mystates.h"
 
 int main(int argc, char **argv) {
 
 
-    BaseState client = BaseState();
+    BaseState basest;
+    NextState nextst;
 
-    StateMap stmap { {"base", client} };
+    StateMap stmap {{"base", basest},
+                    {"next", nextst}};
 
-    start(&client);
+    start(stmap, "base");
 
     return 0;
 }

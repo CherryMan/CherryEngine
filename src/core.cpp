@@ -6,6 +6,7 @@
 
 #include "core.h"
 #include "common.h"
+#include "state/state_machine.h"
 
 
 void init() {
@@ -17,10 +18,12 @@ void init() {
     glfw_window = glfwCreateWindow(640, 480, "title", NULL, NULL);
 }
 
-void loop(State *st) {
+void loop(StateMap &st_map, const std::string &st_name) {
 
-    st->start();
-    st->wait();
+    StateMachine st_m;
+
+    st_m.setmap(st_map);
+    st_m.start(st_name);
 
 /*
     // Ticks per second (note: temporary)

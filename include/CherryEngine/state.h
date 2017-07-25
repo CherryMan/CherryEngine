@@ -1,17 +1,18 @@
 #pragma once
 
 
+#include <cstddef>
 #include <functional>
 #include <initializer_list>
-#include <map>
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 
 // TODO find cleaner solution
 // CB should be isolated under a namespace somehow
-#define CB(fn) [&]() { fn(); }
+#define CB(fn) [&]() { this->fn(); }
 
 
 // state_fn is a pointer to a state method
@@ -29,17 +30,10 @@ class State {
 
 public:
 
+    State();
+
     // Create a new substate
     virtual void substate(State &subst) final;
-
-    // Run the state after its configuration
-    virtual void start() final;
-
-    // Wait for substates and threads to terminate
-    virtual void wait() const final;
-
-    // Stop the state, used for switching
-    virtual void stop() final;
 
     // Switch to the next state in the ordering under the StateMap
     virtual void next_state() final;
@@ -52,13 +46,13 @@ protected:
 
     // Add a coroutine
     // If tickrate is 0, loop is as fast as possible
-    virtual void loop(state_fn fn, const int tickrate) final;
+    virtual void loop(state_fn fn, const double tickrate) final;
 
 
 private:
 
     // Internal implementation
-    StateImpl* d_ptr;
+    std::shared_ptr<StateImpl> d_ptr;
 
 };
 
@@ -67,10 +61,18 @@ class StateMap {
 
 public:
 
-    StateMap() = delete;
-    StateMap(std::initializer_list<std::pair<const std::string&, State&> > init);
+    StateMap() = default;
+    StateMap(std::initializer_list<std::pair<std::string, State&>> init);
+
+    std::shared_ptr<StateImpl> operator[](const std::size_t i);
+    std::shared_ptr<StateImpl> operator[](const std::string& k);
+
+    std::size_t get_index(const std::string& k);
 
 private:
 
-    std::map<std::string, StateImpl&> priv_map;
+    // Store the keys and values in order
+    std::vector<std::string> keys;
+    std::vector<std::shared_ptr<StateImpl>> values;
+
 };
