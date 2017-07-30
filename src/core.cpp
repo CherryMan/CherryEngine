@@ -20,10 +20,14 @@ void init() {
 
 void loop(StateMap &st_map, const std::string &st_name) {
 
-    StateMachine st_m;
+    StateMachine st_m(st_map);
 
-    st_m.setmap(st_map);
     st_m.start(st_name);
+
+    // TODO remove
+    // This is a placeholder to join threads
+    while (true)
+        ; // null statement
 
 /*
     // Ticks per second (note: temporary)

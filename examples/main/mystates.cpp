@@ -5,22 +5,33 @@
 #include <chrono>
 
 void BaseState::render() {
-    std::cout << "Countdown: " << countdown-- << std::endl;
+    std::cout << "BASE count: " << countdown-- << std::endl;
 
     if (countdown == 0) {
-        std::cout << "Done!" << std::endl;
+        std::cerr << "BASE Done!"<< std::endl;
         countdown = 5;
 
         next_state();
     }
 }
 
-void NextState::run() {
-    std::cout << "Countup: " << count++ << std::endl;
+void SubBaseState::runme() {
+    std::cout << "SUBB count: " << count-- << std::endl;
 
-    if (count == 5) {
-        std::cout << "Done!" << std::endl;
-        count = 0;
+    if (count == 0) {
+        std::cout << "SUBB Done!" << std::endl;
+        count = 5;
+
+        next_state();
+    }
+}
+
+void NextState::run() {
+    std::cout << "NEXT count: " << count-- << std::endl;
+
+    if (count == 0) {
+        std::cerr << "NEXT Done!" << std::endl;
+        count = 5;
 
         change_state("base");
     }

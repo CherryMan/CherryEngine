@@ -31,9 +31,10 @@ class State {
 public:
 
     State();
+    State(StateMap &stm);
 
     // Create a new substate
-    virtual void substate(State &subst) final;
+    virtual State &substate(const StateMap stm) final;
 
     // Switch to the next state in the ordering under the StateMap
     virtual void next_state() final;
@@ -68,6 +69,7 @@ public:
     std::shared_ptr<StateImpl> operator[](const std::string& k);
 
     std::size_t get_index(const std::string& k);
+    std::size_t size();
 
 private:
 

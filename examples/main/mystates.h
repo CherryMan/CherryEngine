@@ -16,6 +16,17 @@ private:
     void render();
 };
 
+class SubBaseState : public State {
+public:
+    SubBaseState() {
+        loop(CB(runme), 2);
+    }
+
+private:
+    int count = 5;
+
+    void runme();
+};
 
 class NextState : public State {
 
@@ -25,7 +36,7 @@ public:
     }
 
 private:
-    int count = 0;
+    int count = 5;
 
     void run();
 };
