@@ -8,7 +8,7 @@
 
 #include <CherryEngine/state.h>
 
-#include "state_impl.h"
+#include "state/state_impl.h"
 
 
 StateMachine::StateMachine(const StateMap stm) {

@@ -8,8 +8,8 @@
 #include <utility>
 #include <thread>
 
-#include "../state/state_impl.h"
-#include "../state/state_machine.h"
+#include "state/state_impl.h"
+#include "state/state_machine.h"
 
 
 // State definitions

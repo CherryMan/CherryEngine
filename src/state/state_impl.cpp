@@ -1,11 +1,11 @@
-#include "state_impl.h"
+#include "state/state_impl.h"
 
 #include <iostream>
 
 #include <GLFW/glfw3.h>
 #include <CherryEngine/state.h>
 
-#include "state_machine.h"
+#include "state/state_machine.h"
 
 
 // StateImpl definitions
