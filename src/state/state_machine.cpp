@@ -1,6 +1,5 @@
 #include "state_machine.h"
 
-#include <iostream>
 #include <cstddef>
 #include <memory>
 #include <string>
@@ -8,10 +7,8 @@
 
 #include <CherryEngine/state.h>
 
-#include "state/state_impl.h"
 
-
-StateMachine::StateMachine(const StateMap stm) {
+StateMachine::StateMachine(const StateMap &stm) {
     st_map = stm;
 
     // Set each StateMap's parent machine address
@@ -71,6 +68,7 @@ void StateMachine::change_state(const std::string &st_name) {
 }
 
 void StateMachine::stop() {
+
     st_map[current_index]->stop();
 
     if (sub_machines[current_index]) {

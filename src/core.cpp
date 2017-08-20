@@ -28,34 +28,6 @@ void loop(StateMap &st_map, const std::string &st_name) {
     // This is a placeholder to join threads
     while (true)
         ; // null statement
-
-/*
-    // Ticks per second (note: temporary)
-    const int tickspeed = 25;
-
-    // GLFW uses seconds
-    const double interval = 1 / (double) tickspeed;
-
-    // Loop variables
-    double next_tick = 0;
-
-    // Game loop
-    // Updates according to tickspeed
-    // Renders as fast as possible
-    // Note: interp will be added
-    while (!glfwWindowShouldClose(glfw_window)) {
-
-        while (glfwGetTime() > next_tick) {
-            glfwPollEvents();
-            // TODO update
-
-            next_tick += interval;
-        }
-
-        // TODO render
-
-    }
-*/
 }
 
 void end() {

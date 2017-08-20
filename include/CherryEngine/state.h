@@ -6,6 +6,7 @@
 #include <initializer_list>
 #include <memory>
 #include <string>
+#include <thread>
 #include <utility>
 #include <vector>
 
@@ -14,23 +15,22 @@
 // CB should be isolated under a namespace somehow
 #define CB(fn) [&]() { this->fn(); }
 
-
 // state_fn is a pointer to a state method
 using state_fn = std::function<void()>;
 
-
 class State;
 class StateMap;
-class StateImpl; // internal implementation
+class StateMachine; // internal class
 
 
 class State {
 
-    friend class StateMap;
+    friend class StateMachine;
 
 public:
 
-    State();
+    State() = default;
+    ~State();
     State(StateMap &stm);
 
     // Create a new substate
@@ -52,8 +52,30 @@ protected:
 
 private:
 
-    // Internal implementation
-    std::shared_ptr<StateImpl> d_ptr;
+    // Meant to be used by StateMachine
+
+    // Define a single loop and its properties
+    struct loop_info {
+         state_fn fn;
+         double tickrate;
+         bool running = false;
+         bool stopped = true;
+         std::thread *thr;
+    };
+
+    // These store the loops tickrates, threads and substates
+    std::vector<loop_info> loops;
+    std::shared_ptr<StateMap> substate_map;
+
+    // Stores the address to the StateMachine holding this State
+    StateMachine *st_machine_ptr;
+
+    // Join threads
+    virtual void wait() const final;
+
+    // Start/Stop the current state
+    virtual void start() final;
+    virtual void stop() final;
 
 };
 
@@ -65,8 +87,8 @@ public:
     StateMap() = default;
     StateMap(std::initializer_list<std::pair<std::string, State&>> init);
 
-    std::shared_ptr<StateImpl> operator[](const std::size_t i);
-    std::shared_ptr<StateImpl> operator[](const std::string& k);
+    State *operator[](const std::size_t i);
+    State *operator[](const std::string& k);
 
     std::size_t get_index(const std::string& k);
     std::size_t size();
@@ -75,6 +97,5 @@ private:
 
     // Store the keys and values in order
     std::vector<std::string> keys;
-    std::vector<std::shared_ptr<StateImpl>> values;
-
+    std::vector<State*> values;
 };

@@ -11,7 +11,7 @@ class StateMachine {
 public:
 
     StateMachine() = delete;
-    StateMachine(const StateMap stm);
+    StateMachine(const StateMap &stm);
 
     // Start by index or name
     void start(const std::size_t st_index = 0);
