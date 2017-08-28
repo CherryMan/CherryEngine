@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 
     error << "This is an error, a very bad one" << std::endl;
     warning << "I'm warning you dammit\n";
-    status << "Just giving some info\n";
+    info << "Just giving some info\n";
 
     StateMap sub_stmap {{"subb", subbst}};
 

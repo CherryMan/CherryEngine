@@ -5,12 +5,12 @@
 #include <streambuf>
 
 
-extern std::ostream status;
+extern std::ostream info;
 extern std::ostream warning;
 extern std::ostream error;
 
 enum LogLevel {
-    STATUS,
+    INFO,
     WARNING,
     ERROR,
 };

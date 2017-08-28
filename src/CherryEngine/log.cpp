@@ -1,7 +1,7 @@
 #include <CherryEngine/log.h>
 
 
-std::ostream status(new LogBuf(STATUS));
+std::ostream info(new LogBuf(INFO));
 std::ostream warning(new LogBuf(WARNING));
 std::ostream error(new LogBuf(ERROR));
 
@@ -12,8 +12,8 @@ LogBuf::LogBuf(LogLevel lvl) : log_lvl(lvl) {
     // before flushing
     switch (log_lvl) {
 
-        case STATUS:
-            prefix = "[STATUS] ";
+        case INFO:
+            prefix = "[INFO] ";
             lines_to_flush = 5;
             break;
 
