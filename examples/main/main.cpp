@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
     NextState nextst;
 
     error << "This is an error, a very bad one" << std::endl;
-    warning << "I'm warning you dammit\n";
+    warn << "I'm warning you dammit\n";
     info << "Just giving some info\n";
 
     StateMap sub_stmap {{"subb", subbst}};

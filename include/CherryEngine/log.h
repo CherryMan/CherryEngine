@@ -6,5 +6,5 @@
 
 
 extern std::ostream info;
-extern std::ostream warning;
+extern std::ostream warn;
 extern std::ostream error;

@@ -14,8 +14,8 @@ LogBuf::LogBuf(LogLevel lvl) : log_lvl(lvl) {
             lines_to_flush = 5;
             break;
 
-        case WARNING:
-            prefix = "[WARNING] ";
+        case WARN:
+            prefix = "[WARN] ";
             lines_to_flush = 2;
             break;
 

@@ -5,5 +5,5 @@
 
 
 std::ostream info(new LogBuf(INFO));
-std::ostream warning(new LogBuf(WARNING));
+std::ostream warn(new LogBuf(WARN));
 std::ostream error(new LogBuf(ERROR));
