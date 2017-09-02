@@ -4,6 +4,7 @@ SET(src
     CherryEngine/state.cpp
     CherryEngine/log.cpp
     state/state_machine.cpp
+    log/logbuf.cpp
 )
 
 
